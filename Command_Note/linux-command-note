@@ -1,0 +1,14 @@
+# kill connect for user
+# eg: pkill -9 -t pts/5 
+pkill -9 -t [terminal_line(终端设备)]
+
+# create link file
+# softLink -f, eg: ln -s source_file softlink_file
+# hardLink -d, eg: ln -d source_file hardlink_file
+ln [optinos] source dist
+
+# show the execute stat for the last command
+# the value $? is the stat of last command execute stat
+# the success is 0
+echo $?
+
