@@ -12,3 +12,8 @@ ln [optinos] source dist
 # the success is 0
 echo $?
 
+# show the space of service
+df -hl
+
+# show user's info
+grep $(whoami) /etc/passwd

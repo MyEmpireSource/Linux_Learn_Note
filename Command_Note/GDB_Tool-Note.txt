@@ -1,0 +1,118 @@
+gdb debug tool
+
+
+# 编译时要加上-g选项，生成的可执行文件才能用gdb进行源码级调试：
+# -g选项的作用是在可执行文件中加入源代码的信息，
+# 比如可执行文件中第几条机器指令对应源代码的第几行
+gcc -g [source_file] -o [execute_file]
+# gcc -Wall -g main.c -o Executable/main.out
+
+
+# 开始调试
+gdb [execute_file]
+# gdb Executable/main.out
+
+-----------进入 GDB Shell
+
+# 查看命令类别
+help
+
+
+# 查看某一类别有哪些指令
+help [commind_name]
+# help files
+
+
+# 列出原代码 (list可以用简称 l 代替)
+list/l [begin_line_number] 
+# 从第一行开始列出源代码
+# list/l 1
+
+# 列出函数源代码
+list/l [function_name]
+# 列出函数add_range代码
+# list add_range
+
+
+# 用start命令开始执行程序
+start
+
+# next命令（简写为n）控制这些语句一条一条地执行
+next/n
+
+# 次用step命令（简写为s）钻进函数中去跟踪执行：
+step/s
+
+# backtrace命令（简写为bt）可以查看函数调用的栈帧：
+backtrace/bt
+
+# 用info命令（简写为i）查看函数局部变量的值：
+info/i locals
+# 查看上一层函数的局部变量, 先用frame命令（简写为f）选择对应栈帧号
+# 然后再查看局部变量：
+frame/f 栈帧号
+i locals
+
+# 用print命令（简写为p）打印出变量的值：
+print/p [variable_name[
+
+# 用finish命令让程序一直运行到从当前函数返回为止
+finish
+
+
+# 在gdb中用set var 来设置变量值
+set var {[variable_name]=value}
+# 改变变量的值除了用set命令之外也可以用print命令
+print/p {[variable_name]=value}
+
+# display命令使得每次停下来的时候都显示当前变量的值
+display [variable_name]
+# undisplay命令可以取消跟踪显示，变量sum的编号是1，可以用undisplay 1命令取消它的跟踪
+undisplay [variable_index]
+
+# 用break命令（简写为b）设一个断点（Breakpoint）：
+break/b [line_number]
+# break命令的参数也可以是函数名，表示在某个函数开头设断点
+break/b [function_name]
+
+# 在用continue命令（简写为c）连续运行而非单步运行，
+# 程序到达断点会自动停下来
+continue/c
+
+# 查看断点信息用info命令
+info/i breakpoints
+
+# 断点都有一个编号，可以用编号指定删除某个断点：
+delete breakpoints [number]
+
+# 禁用掉而不删除断点用disable
+disable breakpoints [number]
+# 启用断点
+enable [number]
+
+# gdb的断点功能非常灵活，还可以设置断点在满足某个条件时才激活，
+# 例如我们仍然在循环开头设置断点，但是仅当sum不等于0时才中
+break/b 19 if sum != 9
+
+
+# run命令（简写为r）重新从程序开头连续运行
+run/r
+
+# x命令打印指定存储单元的内容。7b是打印格式，b表示每个字节一组，7表示打印7组[
+x/7b [address]
+x/7x input
+
+
+#watch命令设置观察点 watch star[6]
+watch [variable]
+#查看观察点
+info/i watchpoints
+
+
+
+
+
+
+
+
+
